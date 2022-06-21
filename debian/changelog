@@ -1,3 +1,9 @@
+libmd (1.0.3-3pexip1) pexip; urgency=medium
+
+  * Prepare Pexip packaging
+
+ -- Mark Hymers <mark.hymers@pexip.com>  Tue, 21 Jun 2022 14:45:54 +0100
+
 libmd (1.0.3-3) unstable; urgency=medium
 
   * Source-only upload for testing migration.
