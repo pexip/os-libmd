@@ -1,3 +1,202 @@
+commit 9d3c9a739f86b65b238163b9f8af3623226a6419
+Author: Guillem Jover <guillem@hadrons.org>
+Date:   Tue Oct 5 04:44:25 2021 +0200
+
+    Release libmd 1.0.4
+
+ configure.ac | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+commit 04781b0a5c767454e569694f5b96c8ae6e9127ea
+Author: David Seifert <soap@gentoo.org>
+Date:   Tue Oct 5 04:34:48 2021 +0200
+
+    build: Avoid non-portable '$<' in non-inference rules
+    
+    OpenBSD's 'pmake' chokes on these.
+    
+    Signed-off-by: Guillem Jover <guillem@hadrons.org>
+
+ man/Makefile.am |  6 +++---
+ src/Makefile.am | 18 +++++++++---------
+ 2 files changed, 12 insertions(+), 12 deletions(-)
+
+commit 8a62de57a12899d300872916d8f08ec04a071eeb
+Author: Guillem Jover <guillem@hadrons.org>
+Date:   Tue Aug 17 02:24:09 2021 +0200
+
+    build: Fix out of tree builds
+    
+    The '$<' variable is not guarantee to work in ordinary make rules by
+    non GNU make implementations. In addition if it is supported it will
+    be replaced by the actual source pathname (in VPATH mode), which is not
+    the relative name we need on installation.
+    
+    Ref: https://www.gnu.org/software/autoconf/manual/autoconf.html#g_t_0024_003c-in-Ordinary-Make-Rules
+    Reported-by: David Seifert <soap@gentoo.org>
+
+ man/Makefile.am | 12 ++++++------
+ 1 file changed, 6 insertions(+), 6 deletions(-)
+
+commit 85f7006c64fcf2f2dd72f7bdca11b88231a8ff0d
+Author: David Seifert <soap@gentoo.org>
+Date:   Tue Oct 5 04:20:30 2021 +0200
+
+    build: Explicitly depend on sed
+    
+    Signed-off-by: Guillem Jover <guillem@hadrons.org>
+
+ configure.ac    |  1 +
+ man/Makefile.am |  6 +++---
+ src/Makefile.am | 20 ++++++++++----------
+ 3 files changed, 14 insertions(+), 13 deletions(-)
+
+commit dc32a5957bee09df3645cddb66c65f7803ea5a20
+Author: Guillem Jover <guillem@hadrons.org>
+Date:   Mon Aug 16 14:43:49 2021 +0200
+
+    build: Switch Docker image to Debian bullseye
+
+ .gitlab-ci.yml | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+commit d9c4c7fe282bbf79fdf3af6aa4b870125e822a50
+Author: Guillem Jover <guillem@hadrons.org>
+Date:   Sat Feb 20 22:19:49 2021 +0100
+
+    build: Add support for sanitizer compiler flags
+
+ .gitlab-ci.yml |  2 +-
+ configure.ac   | 13 +++++++++++++
+ 2 files changed, 14 insertions(+), 1 deletion(-)
+
+commit e35f6b877ab381ffcea9f391944be2097524c20c
+Author: Guillem Jover <guillem@hadrons.org>
+Date:   Fri Feb 19 23:59:47 2021 +0100
+
+    build: Add compiler warnings support
+    
+    Detect as many warnings as possible during configure and enable them
+    if the user did not supply any, so that any such problem can be spotted
+    and fixed.
+
+ configure.ac         | 43 +++++++++++++++++++++++++++++++++++++++++++
+ m4/libmd-compiler.m4 | 24 ++++++++++++++++++++++++
+ 2 files changed, 67 insertions(+)
+
+commit 9cc6db0cf8ad97b33f1499df001f0609a3003a77
+Author: Guillem Jover <guillem@hadrons.org>
+Date:   Sun Feb 28 18:57:00 2021 +0100
+
+    build: Improve coverage report
+    
+    Exclude test suite files from the coverage which incorrectly increase
+    the coverage percent. Build with no-optimizations and debugging symbols.
+
+ .gitlab-ci.yml | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+commit ef667150e80dcb4ca2dd87c30655f23442687969
+Author: Guillem Jover <guillem@hadrons.org>
+Date:   Sun Feb 28 18:56:27 2021 +0100
+
+    build: Indent packages in GitLab CI apt-get invocation
+
+ .gitlab-ci.yml | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+commit 8308181a0018a15944df18303316c30b6d1dbf4a
+Author: Guillem Jover <guillem@hadrons.org>
+Date:   Sat Feb 20 23:41:51 2021 +0100
+
+    build: Add GitLab CI support
+
+ .gitlab-ci.yml | 19 +++++++++++++++++++
+ 1 file changed, 19 insertions(+)
+
+commit ac5cd2d7fce430ab04376cc514da8f88156b9cef
+Author: Guillem Jover <guillem@hadrons.org>
+Date:   Sun Feb 28 01:13:14 2021 +0100
+
+    build: Ignore code coverage files
+
+ .gitignore | 2 ++
+ 1 file changed, 2 insertions(+)
+
+commit 1a8d0b68a1f6a42c57261e76a8fccb9404fc305f
+Author: Guillem Jover <guillem@hadrons.org>
+Date:   Sat Feb 20 23:40:29 2021 +0100
+
+    man: Document RIPEMD160 and SHA-1 security status
+
+ man/rmd160.3 | 7 +++----
+ man/sha1.3   | 6 ++++--
+ 2 files changed, 7 insertions(+), 6 deletions(-)
+
+commit e50a6db8ec1425e8354ece5ce45ac6cb2d2dcb3b
+Author: Guillem Jover <guillem@hadrons.org>
+Date:   Fri Feb 19 23:58:37 2021 +0100
+
+    test: Fix pointer type sign mismatch in DEF_TEST_DIGEST() macro
+    
+    Warned-by: gcc
+
+ test/test.h | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+commit b7d06e0dc98a0b774db6e54272a38ed0583b3d4d
+Author: Guillem Jover <guillem@hadrons.org>
+Date:   Fri Feb 19 23:56:07 2021 +0100
+
+    Fix signedness type mismatch comparisons
+    
+    Change the variable type or use a cast.
+    
+    Warned-by: gcc
+
+ src/helper.c | 2 +-
+ test/test.h  | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
+
+commit 6cedc1594f34529a803a25cbcb773cbf5a6fc891
+Author: Guillem Jover <guillem@hadrons.org>
+Date:   Fri Feb 19 07:14:15 2021 +0100
+
+    Fix main() function prototype
+    
+    Warned-by: gcc
+
+ test/md2.c    | 2 +-
+ test/md4.c    | 2 +-
+ test/md5.c    | 2 +-
+ test/rmd160.c | 2 +-
+ test/sha1.c   | 2 +-
+ test/sha2.c   | 2 +-
+ 6 files changed, 6 insertions(+), 6 deletions(-)
+
+commit 52ee547648923398015add10e0e9490ce3226ec7
+Author: Guillem Jover <guillem@hadrons.org>
+Date:   Fri Feb 19 07:13:51 2021 +0100
+
+    Declare local functions as static
+    
+    Warned-by: gcc
+
+ test/md5.c  | 6 +++---
+ test/test.h | 2 +-
+ 2 files changed, 4 insertions(+), 4 deletions(-)
+
+commit 281dab62f25eee47da5eb996db7ef440a22d2295
+Author: Guillem Jover <guillem@hadrons.org>
+Date:   Fri Feb 19 07:13:28 2021 +0100
+
+    Place static keyword before const in function definitions
+    
+    Warned-by: gcc
+
+ src/sha2.c | 10 +++++-----
+ 1 file changed, 5 insertions(+), 5 deletions(-)
+
 commit 981a0a1dc91aae55930451564e506f927010622a
 Author: Guillem Jover <guillem@hadrons.org>
 Date:   Sat Jan 2 16:30:03 2021 +0100
