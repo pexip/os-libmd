@@ -1,3 +1,9 @@
+libmd (1.0.3-3pexip4) pexip-bullseye; urgency=medium
+
+  * Bullseye rebuild for ARM64 inclusion
+
+ -- Mark Hymers <mark.hymers@pexip.com>  Mon, 05 Sep 2022 10:32:22 +0100
+
 libmd (1.0.3-3pexip3) pexip-bullseye; urgency=medium
 
   * Rebuild for override changes
