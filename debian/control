@@ -6,7 +6,7 @@ XSBC-Pexip-Original-Maintainer: Guillem Jover <guillem@debian.org>
 Vcs-Browser: https://git.hadrons.org/cgit/debian/pkgs/libmd.git
 Vcs-Git: https://git.hadrons.org/git/debian/pkgs/libmd.git
 Homepage: https://www.hadrons.org/software/libmd/
-Standards-Version: 4.5.1
+Standards-Version: 4.6.1
 Rules-Requires-Root: no
 Build-Depends:
  debhelper-compat (= 13),
@@ -47,6 +47,7 @@ Package: libmd0-udeb
 Package-Type: udeb
 Section: debian-installer
 Architecture: any
+Build-Profiles: <!noudeb>
 Depends:
  ${shlibs:Depends},
  ${misc:Depends},
