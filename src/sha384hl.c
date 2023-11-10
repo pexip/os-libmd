@@ -74,7 +74,7 @@ SHA384FileChunk(const char *filename, char *buf, off_t off, off_t len)
 		return (NULL);
 	}
 
-	while ((nr = read(fd, buffer, MIN(sizeof(buffer), len))) > 0) {
+	while ((nr = read(fd, buffer, MIN((off_t)sizeof(buffer), len))) > 0) {
 		SHA384Update(&ctx, buffer, (size_t)nr);
 		if (len > 0 && (len -= nr) == 0)
 			break;
