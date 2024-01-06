@@ -4,12 +4,12 @@ AM_CPPFLAGS = \
 	-I$(top_builddir) \
 	-I$(srcdir) \
 	-I$(top_srcdir)/include \
-	$(nil)
+	# EOL
 
 pkgconfigdir = $(libdir)/pkgconfig
 pkgconfig_DATA = \
 	libmd.pc \
-	$(nil)
+	# EOL
 
 lib_LTLIBRARIES = libmd.la
 
@@ -19,29 +19,35 @@ libmd_la_helper_sources = \
 	md5hl.c \
 	rmd160hl.c \
 	sha1hl.c \
+	sha224hl.c \
 	sha256hl.c \
 	sha384hl.c \
 	sha512hl.c \
-	$(nil)
+	sha512_256hl.c \
+	# EOL
 
 EXTRA_libmd_la_DEPENDENCIES = \
 	libmd.map
 
 libmd_la_LDFLAGS = \
 	-no-undefined \
-	-version-number $(LIBMD_ABI)
+	-version-number $(LIBMD_ABI) \
+	# EOL
 if HAVE_LINKER_VERSION_SCRIPT
 libmd_la_LDFLAGS += \
-	-Wl,--version-script=$(srcdir)/libmd.map
+	-Wl,--version-script=$(srcdir)/libmd.map \
+	# EOL
 else
 libmd_la_LDFLAGS += \
-	-export-symbols libmd.sym
+	-export-symbols libmd.sym \
+	# EOL
 EXTRA_libmd_la_DEPENDENCIES += \
-	libmd.sym
+	libmd.sym \
+	# EOL
 endif
 EXTRA_libmd_la_DEPENDENCIES += \
 	helper.c \
-	$(nil)
+	# EOL
 libmd_la_SOURCES = \
 	local-link.h \
 	md2.c \
@@ -51,30 +57,30 @@ libmd_la_SOURCES = \
 	sha1.c \
 	sha2.c \
 	$(libmd_la_helper_sources) \
-	$(nil)
+	# EOL
 
 BUILT_SOURCES = \
 	$(libmd_la_helper_sources) \
-	$(nil)
+	# EOL
 
 EXTRA_DIST = \
 	libmd.map \
 	libmd.pc.in \
 	helper.c \
-	$(nil)
+	# EOL
 
 CLEANFILES = \
 	$(libmd_la_helper_sources) \
-	$(nil)
+	# EOL
 
 DISTCLEANFILES = \
 	libmd.sym \
-	$(nil)
+	# EOL
 
 # Generate a simple libtool symbol export list to be used as a fallback if
 # there is no version script support.
 libmd.sym: libmd.map
-	$(AM_V_GEN) $(SED) -ne 's/^[[:space:]]\{1,\}\([A-Za-z0-9]\{1,\}\);/\1/p' libmd.map > $@
+	$(AM_V_GEN) $(SED) -ne 's/^[[:space:]]\{1,\}\([A-Za-z0-9_]\{1,\}\);/\1/p' libmd.map > $@
 
 md2hl.c: helper.c
 	$(AM_V_GEN) $(SED) -e 's/hashinc/md2.h/g' -e 's/HASH/MD2/g' helper.c > $@
@@ -91,6 +97,10 @@ rmd160hl.c: helper.c
 sha1hl.c: helper.c
 	$(AM_V_GEN) $(SED) -e 's/hashinc/sha1.h/g' -e 's/HASH/SHA1/g' helper.c > $@
 
+sha224hl.c: helper.c
+	$(AM_V_GEN) $(SED) -e 's/hashinc/sha2.h/g' -e 's/HASH/SHA224/g' \
+	                -e 's/SHA[0-9][0-9][0-9]_CTX/SHA2_CTX/g' helper.c > $@
+
 sha256hl.c: helper.c
 	$(AM_V_GEN) $(SED) -e 's/hashinc/sha2.h/g' -e 's/HASH/SHA256/g' \
 	                -e 's/SHA[0-9][0-9][0-9]_CTX/SHA2_CTX/g' helper.c > $@
@@ -102,6 +112,10 @@ sha384hl.c: helper.c
 sha512hl.c: helper.c
 	$(AM_V_GEN) $(SED) -e 's/hashinc/sha2.h/g' -e 's/HASH/SHA512/g' \
 	                -e 's/SHA[0-9][0-9][0-9]_CTX/SHA2_CTX/g' helper.c > $@
+
+sha512_256hl.c: helper.c
+	$(AM_V_GEN) $(SED) -e 's/hashinc/sha2.h/g' -e 's/HASH/SHA512_256/g' \
+	                -e 's/SHA512_256_CTX/SHA2_CTX/g' helper.c > $@
 
 runtimelibdir = $(libdir)
 

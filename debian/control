@@ -5,10 +5,11 @@ Maintainer: Guillem Jover <guillem@debian.org>
 Vcs-Browser: https://git.hadrons.org/cgit/debian/pkgs/libmd.git
 Vcs-Git: https://git.hadrons.org/git/debian/pkgs/libmd.git
 Homepage: https://www.hadrons.org/software/libmd/
-Standards-Version: 4.6.1
+Standards-Version: 4.6.2
 Rules-Requires-Root: no
 Build-Depends:
  debhelper-compat (= 13),
+ debhelper (>= 13.10),
 
 Package: libmd-dev
 Section: libdevel
@@ -28,7 +29,7 @@ Description: message digest functions from BSD systems - development files
   * MD5
   * RIPEMD-160
   * SHA-1
-  * SHA-2 (SHA-256, SHA-384 and SHA-512)
+  * SHA-2 (SHA-224, SHA-256, SHA-384, SHA-512/256 and SHA-512)
 
 Package: libmd0
 Architecture: any

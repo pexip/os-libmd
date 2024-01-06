@@ -1,3 +1,23 @@
+libmd (1.1.0-2) unstable; urgency=medium
+
+  * Switch autopkgtest dependency from pkg-config to pkgconf.
+  * Wrap fields in debian/tests/control.
+  * Add SHA-224 and SHA-512/256 to functions provided in libmd-dev package
+    Description (since libmd 1.1.0).
+
+ -- Guillem Jover <guillem@debian.org>  Sat, 06 Jan 2024 02:21:45 +0100
+
+libmd (1.1.0-1) unstable; urgency=medium
+
+  * New upstream release.
+  * Switch to Standards-Version 4.6.2 (no changes needed).
+  * Minimize upstream signing certificate.
+  * Do not trim debian/changelog.
+  * Make globs in debhelper fragment files more specific.
+  * Switch from hardening=+bindnow to hardening=+all.
+
+ -- Guillem Jover <guillem@debian.org>  Wed, 14 Jun 2023 00:19:59 +0200
+
 libmd (1.0.4-2) unstable; urgency=medium
 
   * Add support for the noudeb build profile.
