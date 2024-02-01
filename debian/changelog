@@ -1,3 +1,9 @@
+libmd (1.0.4-2+pexip24u3) pexip-bookworm; urgency=medium
+
+  * New versioning scheme
+
+ -- Mark Hymers <mark.hymers@pexip.com>  Thu, 01 Feb 2024 16:05:39 +0000
+
 libmd (1.0.4-2pexip2) pexip-bookworm; urgency=medium
 
   * Bookworm build for product distribution
