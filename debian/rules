@@ -3,8 +3,11 @@
 # Uncomment this to turn on verbose mode.
 #export DH_VERBOSE=1
 
-export DEB_BUILD_MAINT_OPTIONS = hardening=+bindnow
+export DEB_BUILD_MAINT_OPTIONS = hardening=+all
 export DEB_CFLAGS_MAINT_PREPEND = -Wall
 
 %:
 	dh $@
+
+override_dh_installchangelogs:
+	dh_installchangelogs --no-trim

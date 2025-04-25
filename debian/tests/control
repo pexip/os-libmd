@@ -1,8 +1,9 @@
-Tests: test-unit
+Tests:
+ test-unit
 Restrictions:
  allow-stderr
  rw-build-tree
 Depends:
  @,
  build-essential,
- pkg-config,
+ pkgconf,

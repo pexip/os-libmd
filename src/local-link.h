@@ -1,5 +1,5 @@
 /*
- * Copyright © 2015, 2019 Guillem Jover <guillem@hadrons.org>
+ * Copyright © 2015, 2019, 2021, 2023 Guillem Jover <guillem@hadrons.org>
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
@@ -36,12 +36,20 @@
  * is too cumbersome, as it does not work when static linking, and when
  * dynamic linking it does not make the aliases visible within the DLL itself.
  *
+ * On macOS we need to use an assembler alias as it does not support
+ * the alias attribute.
+ *
  * Instead we use normal function wrapper in those cases, which are way more
  * maintainable.
  */
-#ifndef _MSC_VER
-#define libmd_alias(alias, symbol) \
-	extern __typeof(symbol) alias __attribute__((__alias__(#symbol)))
+#if defined(__APPLE__)
+#define libmd_strong_alias(alias, symbol) \
+	__asm__(".globl _" #alias); \
+	__asm__(".set _" #alias ", _" #symbol); \
+	extern __typeof__(symbol) alias
+#elif !defined(_MSC_VER)
+#define libmd_strong_alias(alias, symbol) \
+	extern __typeof__(symbol) alias __attribute__((__alias__(#symbol)))
 #endif
 
 #ifdef __ELF__
@@ -52,7 +60,7 @@
 	__asm__(".symver " #symbol "," #alias "@" #version)
 #else
 #define libmd_symver_default(alias, symbol, version) \
-	extern __typeof(symbol) alias __attribute__((__alias__(#symbol)))
+	libmd_strong_alias(alias, symbol)
 
 #define libmd_symver_variant(alias, symbol, version)
 #endif
