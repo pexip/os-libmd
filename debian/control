@@ -10,7 +10,7 @@ Standards-Version: 4.6.1
 Rules-Requires-Root: no
 Build-Depends:
  debhelper-compat (= 13),
-XS-Pexip-Upstream: http://deb.debian.org/debian/ bookworm
+XS-Pexip-Upstream: http://deb.debian.org/debian/ trixie
 
 Package: libmd-dev
 Section: libdevel
