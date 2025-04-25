@@ -1,3 +1,234 @@
+commit 16d68ab76eee25bf8ec807aff9a6ea7e0f135019
+Author: Guillem Jover <guillem@hadrons.org>
+Date:   Thu May 25 23:54:13 2023 +0200
+
+    Release libmd 1.1.0
+
+ configure.ac | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+commit 054bca1a2e9810b3017c868e344af8d6c4270767
+Author: Guillem Jover <guillem@hadrons.org>
+Date:   Tue Apr 11 00:19:46 2023 +0200
+
+    build: Terminate lists in variables with «# EOL»
+    
+    This means we can add a trailing «\» to every element, so that they
+    can be removed without requiring modification of other lines, and can
+    be easily sorted.
+    
+    Replace the old usage of $(nil) which could possibly end up with junk
+    added if such variable is ever defined, in the environment.
+
+ Makefile.am         |  9 +++++++--
+ include/Makefile.am |  4 ++--
+ man/Makefile.am     | 20 ++++++++++----------
+ src/Makefile.am     | 30 +++++++++++++++++-------------
+ test/Makefile.am    |  6 +++---
+ 5 files changed, 39 insertions(+), 30 deletions(-)
+
+commit 84d269e813276337a6a074b0ca4d276465b4fc6f
+Author: Guillem Jover <guillem@hadrons.org>
+Date:   Thu Apr 6 20:37:41 2023 +0200
+
+    test: Add cases for SHA224 and SHA512-256
+
+ test/sha2.c | 16 ++++++++++++++++
+ 1 file changed, 16 insertions(+)
+
+commit a677e68673f18bf84b2314b8716e052fb5e471e4
+Author: Guillem Jover <guillem@hadrons.org>
+Date:   Thu Apr 6 20:37:41 2023 +0200
+
+    test: Add a new test_eq() helper function
+
+ test/test.h | 15 +++++++++++++--
+ 1 file changed, 13 insertions(+), 2 deletions(-)
+
+commit 4c5931f53727b1428b47b6a1c0bfdad02c46f1ca
+Author: Guillem Jover <guillem@hadrons.org>
+Date:   Thu Apr 6 20:37:41 2023 +0200
+
+    Sync SHA2 changes from OpenBSD
+    
+    This adds support for SHA224 and SHA512-256.
+
+ include/sha2.h  |  32 +++++++-
+ src/Makefile.am |  12 ++-
+ src/libmd.map   |  23 ++++++
+ src/sha2.c      | 241 ++++++++++++++++++++++++++++++++++++++++++--------------
+ 4 files changed, 247 insertions(+), 61 deletions(-)
+
+commit 9934d941e068001a8116319ee500cbf76b50eb0e
+Author: Guillem Jover <guillem@hadrons.org>
+Date:   Wed Apr 5 23:53:43 2023 +0200
+
+    Sync SHA1 changes from OpenBSD
+    
+    Remove SH specific code, and remove conditional for the digest argument.
+
+ include/sha1.h |  2 +-
+ src/sha1.c     | 72 ++++------------------------------------------------------
+ 2 files changed, 6 insertions(+), 68 deletions(-)
+
+commit 457e30aeec5b0fe979ffb7ffc9e69db52a19fbfc
+Author: Guillem Jover <guillem@hadrons.org>
+Date:   Sun Apr 9 00:14:30 2023 +0200
+
+    Sync RMD160 changes from OpenBSD
+
+ include/rmd160.h |  2 +-
+ src/rmd160.c     | 12 +++++-------
+ 2 files changed, 6 insertions(+), 8 deletions(-)
+
+commit b2e54bcdac68d48f4a5919ece045fe4d0f741f96
+Author: Guillem Jover <guillem@hadrons.org>
+Date:   Sun Apr 9 00:10:07 2023 +0200
+
+    Sync MD5 changes from OpenBSD
+
+ include/md5.h |  2 +-
+ src/md5.c     | 12 +++++-------
+ 2 files changed, 6 insertions(+), 8 deletions(-)
+
+commit ee56a52ac4dc72002eb601ba08196572d6e8a092
+Author: Guillem Jover <guillem@hadrons.org>
+Date:   Sun Apr 9 00:05:02 2023 +0200
+
+    Sync MD4 changes from OpenBSD
+    
+    Get all changes before this MD4 implementation got removed from OpenBSD.
+
+ include/md4.h |  2 +-
+ src/md4.c     | 10 ++++------
+ 2 files changed, 5 insertions(+), 7 deletions(-)
+
+commit b9496acd52b4f4cbde13e80cae4305e9454a469a
+Author: Guillem Jover <guillem@hadrons.org>
+Date:   Wed Apr 5 23:53:24 2023 +0200
+
+    Sync MD2 changes from NetBSD
+
+ include/md2.h | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+commit 09d58246d1aba6ca17ca1e19bb08ef855a9b29fd
+Author: Guillem Jover <guillem@hadrons.org>
+Date:   Sat Apr 8 20:53:37 2023 +0200
+
+    Remove unused <assert.h>
+
+ src/md2.c | 1 -
+ 1 file changed, 1 deletion(-)
+
+commit 08b2c5dd8a51a77b1d9ab436e4e9c261aafa0049
+Author: Guillem Jover <guillem@hadrons.org>
+Date:   Sat Apr 8 23:43:04 2023 +0200
+
+    build: Rename libmd_alias() to libmd_strong_alias()
+
+ src/local-link.h | 6 +++---
+ src/sha2.c       | 8 ++++----
+ 2 files changed, 7 insertions(+), 7 deletions(-)
+
+commit ed695998501bf90158f3899d92fecf28293ea313
+Author: Guillem Jover <guillem@hadrons.org>
+Date:   Fri Mar 31 23:47:38 2023 +0200
+
+    On Darwin use assembler to support symbol aliases
+    
+    The alias attribute is not supported on Darwin, but we can alias using
+    assembler directives instead.
+    
+    At the same time we switch the non-ELF fallback implementation for
+    libmd_symver_default to use libmd_alias.
+
+ src/local-link.h | 14 ++++++++++----
+ 1 file changed, 10 insertions(+), 4 deletions(-)
+
+commit b74b77720494d3103ba0e2e6eb0fd077d33221cf
+Author: Guillem Jover <guillem@hadrons.org>
+Date:   Tue Mar 28 03:25:35 2023 +0200
+
+    build: Do not use strong aliases on macOS
+    
+    These are not supported, and when trying to link the library we
+    get the following error message:
+    
+       error: aliases are not supported on darwin
+
+ src/local-link.h | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
+
+commit 94838ec6983ab067769901e87f50e9b377252d7e
+Author: Guillem Jover <guillem@hadrons.org>
+Date:   Tue Mar 14 01:49:53 2023 +0100
+
+    build: Require automake 1.11
+    
+    This is a rather old release (from 2009), that provides AM_SILENT_RULES.
+
+ configure.ac | 8 ++------
+ 1 file changed, 2 insertions(+), 6 deletions(-)
+
+commit 39cbc7bb0c8f30c05d0190899aa023e8f04ae317
+Author: Guillem Jover <guillem@hadrons.org>
+Date:   Tue Mar 14 01:48:45 2023 +0100
+
+    build: Fix configure.ac indentation
+    
+    Use the same style as the newly added code, which should make the code
+    more readable.
+
+ configure.ac | 28 ++++++++++++++++++----------
+ 1 file changed, 18 insertions(+), 10 deletions(-)
+
+commit 4620a04ab627ff266ee90853fa2e13326f169552
+Author: Guillem Jover <guillem@hadrons.org>
+Date:   Fri Feb 17 22:29:50 2023 +0100
+
+    build: Switch to debian:latest Docker image
+    
+    This should always point to the latest Debian stable images.
+
+ .gitlab-ci.yml | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+commit e408786075b9540f76783f5c3ce87f6d1ece13cf
+Author: Guillem Jover <guillem@hadrons.org>
+Date:   Sun Feb 12 23:55:09 2023 +0100
+
+    build: Fix version script linker support detection
+    
+    When the linker uses --no-undefined-version either specified by the user
+    or as the default behavior (such as with newer clang >= 16 releases),
+    a missing symbol definition will cause a linker error if that symbol is
+    listed in the version script.
+    
+    Closes: #1
+
+ m4/libmd-linker.m4 | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
+
+commit 0ef1e4da68332073457e8b3be512b6d902be4685
+Author: Guillem Jover <guillem@hadrons.org>
+Date:   Wed Oct 5 01:38:35 2022 +0200
+
+    doc: Move mailing list reference to the end
+
+ README | 24 ++++++++++++------------
+ 1 file changed, 12 insertions(+), 12 deletions(-)
+
+commit a3f16719026f26d0a7e6ca9aa0f67881505fa017
+Author: Guillem Jover <guillem@hadrons.org>
+Date:   Tue Oct 5 06:03:29 2021 +0200
+
+    man: Add new libmd(7) man page
+
+ man/Makefile.am |   1 +
+ man/libmd.7     | 102 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ 2 files changed, 103 insertions(+)
+
 commit 9d3c9a739f86b65b238163b9f8af3623226a6419
 Author: Guillem Jover <guillem@hadrons.org>
 Date:   Tue Oct 5 04:44:25 2021 +0200
