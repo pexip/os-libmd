@@ -1,3 +1,9 @@
+libmd (1.1.0-2+pexip25u1) pexip-trixie; urgency=medium
+
+  * Initial trixie build
+
+ -- Mark Hymers <mark.hymers@pexip.com>  Tue, 29 Apr 2025 22:36:30 +0100
+
 libmd (1.1.0-2) unstable; urgency=medium
 
   * Switch autopkgtest dependency from pkg-config to pkgconf.
